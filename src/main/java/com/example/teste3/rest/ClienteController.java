@@ -15,6 +15,7 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 
 @RequestMapping("/api/clientes")
+@CrossOrigin("*")
 @Data
 @RequiredArgsConstructor
 
