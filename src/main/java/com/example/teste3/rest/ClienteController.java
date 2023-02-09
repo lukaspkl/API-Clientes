@@ -29,6 +29,9 @@ public class ClienteController {
     @PostMapping
     @ResponseStatus(CREATED)
     public Cliente salvar (@RequestBody  @Valid Cliente cliente ){
+        if (banco.findBycpf(cliente.getCpf())!=null){
+            throw new ResponseStatusException(CONFLICT,"Cliente ja existe com esse CPF");
+        }
         return banco.save(cliente);
     }
 
@@ -40,11 +43,12 @@ public class ClienteController {
                 throw new ResponseStatusException(NOT_FOUND, "Cliente não encontrado");
             }
 
-        return banco.buscarClienteID(id);
+        return cliente;
     }
 
     @GetMapping
     public List<Cliente> obtertodosClientes(){
+
         return banco.findAll();
     }
 
@@ -65,7 +69,7 @@ public class ClienteController {
         Cliente cliente = banco.buscarClienteID(id);
         if (cliente == null) {
 
-            throw new ResponseStatusException(NOT_FOUND,"Cliente nao encontraro");
+            throw new ResponseStatusException(NOT_FOUND,"Cliente nao encontrado");
 
         }
         cliente.setNome(novoCliente.getNome());

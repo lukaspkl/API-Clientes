@@ -17,4 +17,9 @@ public interface ClienteRepository extends JpaRepository<Cliente,Integer> {
         return save(novocliente);
     }
 
+    Cliente findBycpf(String cpf);
+
+
+
+
 }
